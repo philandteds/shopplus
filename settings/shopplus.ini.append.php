@@ -16,6 +16,7 @@ MultiPriceDataType[]=customprice
 
 CustomPriceHandler[]
 CustomPriceHandler[mk_product]=eZCustomPriceHandlerMK
+CustomPriceHandler[xrow_product]=eZCustomPriceHandlerMK
 
 
 
@@ -26,6 +27,7 @@ AddView=basket
 #AddView=add
 AddToBasketHandler[]
 AddToBasketHandler[mk_product]=eZAddToBasketHandlerMK
+AddToBasketHandler[xrow_product]=eZAddToBasketHandlerMK
 #AddToBasketHandler[]=
 
 */ ?>
