@@ -2,6 +2,6 @@
 
 [DataTypeSettings]
 ExtensionDirectories[]=shopplus
-AvailableDataTypes[]=customprize
+AvailableDataTypes[]=customprice
 
 */ ?>

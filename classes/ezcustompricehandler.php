@@ -4,21 +4,21 @@
  * eZAddToBasketHandler class
  *
  */
-class eZCustomPrizeHandler
+class eZCustomPriceHandler
 {
     /**
-     * Call calculatePrize user definied functions.
+     * Call calculatePrice user definied functions.
      *
      * @static
      * @param string $object
-     * @param array $result(instance of eZSinglePrize)
+     * @param array $result(instance of eZSinglePrice)
      * @return bool
      */
     static function exec( $method, $object)
     {
 
         $ini = eZINI::instance( 'shopplus.ini' );
-        $handlers = $ini->variable( 'PriceSettings', 'CustomPrizeHandler' );
+        $handlers = $ini->variable( 'PriceSettings', 'CustomPriceHandler' );
 
         if ( !$object && !$handlers && !isset($handlers[$object->attribute('class_identifier')])){
             return false;

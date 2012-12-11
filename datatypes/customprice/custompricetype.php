@@ -1,19 +1,19 @@
 <?php
 
 /*!
-  \class CustomPrizeType customprizetype.php
+  \class CustomPriceType custompricetype.php
   \ingroup eZDatatype
-  \brief A content datatype which adding custom prize calculator
+  \brief A content datatype which adding custom price calculator
 
 */
 
-class CustomPrizeType extends eZDataType
+class CustomPriceType extends eZDataType
 {
-    const DATA_TYPE_STRING = "customprize";
+    const DATA_TYPE_STRING = "customprice";
 
-    function CustomPrizeType()
+    function CustomPriceType()
     {
-        $this->eZDataType( self::DATA_TYPE_STRING, ezpI18n::tr( 'kernel/classes/datatypes', "Custom Prize", 'Datatype name' ),
+        $this->eZDataType( self::DATA_TYPE_STRING, ezpI18n::tr( 'kernel/classes/datatypes', "Custom Price", 'Datatype name' ),
                            array( 'serialize_supported' => true ) );
     }
 
@@ -23,7 +23,7 @@ class CustomPrizeType extends eZDataType
     function objectAttributeContent( $contentObjectAttribute )
     {
         $object = eZContentObject::fetch( $contentObjectAttribute->attribute('contentobject_id'));
-        return eZCustomPrizeHandler::exec('calculatePrize', $object);
+        return eZCustomPriceHandler::exec('calculatePrice', $object);
     }
 
 
@@ -55,6 +55,6 @@ class CustomPrizeType extends eZDataType
 
 }
 
-eZDataType::register( CustomPrizeType::DATA_TYPE_STRING, "CustomPrizeType" );
+eZDataType::register( CustomPriceType::DATA_TYPE_STRING, "CustomPriceType" );
 
 ?>

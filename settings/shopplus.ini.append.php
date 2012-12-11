@@ -5,17 +5,17 @@
 PriceDataType[]
 PriceDataType[]=ezprice
 #PriceDataType[]=ezmultiprice
-PriceDataType[]=customprize
+PriceDataType[]=customprice
 
 SimplePriceDataType[]
 SimplePriceDataType[]=ezprice
 
 MultiPriceDataType[]
 #MultiPriceDataType[]=ezmultiprice
-MultiPriceDataType[]=customprize
+MultiPriceDataType[]=customprice
 
-CustomPrizeHandler[]
-CustomPrizeHandler[mk_product]=eZCustomPrizeHandlerMK
+CustomPriceHandler[]
+CustomPriceHandler[mk_product]=eZCustomPriceHandlerMK
 
 
 
