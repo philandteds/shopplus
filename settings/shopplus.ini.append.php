@@ -3,15 +3,15 @@
 
 [PriceSettings]
 PriceDataType[]
-PriceDataType[]=ezprice
-#PriceDataType[]=ezmultiprice
+#PriceDataType[]=ezprice
+PriceDataType[]=ezmultiprice
 PriceDataType[]=customprice
 
 SimplePriceDataType[]
-SimplePriceDataType[]=ezprice
+#SimplePriceDataType[]=ezprice
 
 MultiPriceDataType[]
-#MultiPriceDataType[]=ezmultiprice
+MultiPriceDataType[]=ezmultiprice
 MultiPriceDataType[]=customprice
 
 CustomPriceHandler[]
