@@ -180,11 +180,11 @@ class eZShopFunctions
     */
     static function preferredCurrencyCode()
     {
-        if( !$currencyCode = eZPreferences::value( 'user_preferred_currency' ) )
-        {
+        //if( !$currencyCode = eZPreferences::value( 'user_preferred_currency' ) )
+        //{
             $ini = eZINI::instance( 'shop.ini' );
             $currencyCode = $ini->variable( 'CurrencySettings', 'PreferredCurrency' );
-        }
+        //}
         return $currencyCode;
     }
 
