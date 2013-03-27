@@ -409,9 +409,10 @@ class eZBasket extends eZPersistentObject
 			else {
 	                        $priceObj = $attribute->content();
 			}
-      	                $price += $priceObj->attribute( 'price' );
-              	        break;
-	
+						if( is_object( $priceObj ) ) {
+      	                	$price += $priceObj->attribute( 'price' );
+              	        	break;
+     					}
                     }
                 }
                 if ( !is_object( $priceObj ) )
