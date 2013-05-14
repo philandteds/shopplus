@@ -577,6 +577,9 @@ WHERE ezbasket.session_id = ezsession.session_key AND
             if ( !eZShopFunctions::isSimplePriceProductType( $productType ) )
                 $error = eZShopFunctions::isPreferredCurrencyValid();
 
+/**
+ *
+ * SD: useless check
             if ( $error === eZError::SHOP_OK )
             {
                 $basketType = $this->type();
@@ -584,7 +587,7 @@ WHERE ezbasket.session_id = ezsession.session_key AND
                     $error = eZError::SHOP_BASKET_INCOMPATIBLE_PRODUCT_TYPE;
             }
         }
-
+*/
         return $error;
     }
 
