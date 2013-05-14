@@ -586,8 +586,9 @@ WHERE ezbasket.session_id = ezsession.session_key AND
                 if ( $basketType !== false && $basketType !== $productType )
                     $error = eZError::SHOP_BASKET_INCOMPATIBLE_PRODUCT_TYPE;
             }
-        }
 */
+        }
+
         return $error;
     }
 
