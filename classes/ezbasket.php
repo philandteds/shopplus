@@ -75,7 +75,7 @@ class eZBasket extends eZPersistentObject
      * @param bool $asObject
      * @param array|null $sorts Array with sort data sent directly to {@link eZPersistentObject::fetchObjectList()}
      */
-    function items( $asObject = true, $sorts = array( 'contentobject_id' => 'desc' ) )
+    function items( $asObject = true, $sorts = array( 'id' => 'asc' ) )
     {
         $productItems = eZPersistentObject::fetchObjectList( eZProductCollectionItem::definition(),
                                                              null,
