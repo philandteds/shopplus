@@ -61,7 +61,9 @@ class eZBasket extends eZPersistentObject
                                                       'total_inc_vat' => 'totalIncVAT',
                                                       'is_empty' => 'isEmpty',
                                                       'productcollection' => 'productCollection',
-                                                      'items_info' => 'itemsInfo' ),
+                                                      'items_info' => 'itemsInfo',
+                                                      'bond' => 'bond'
+                      ),
                       "keys" => array( "id" ),
                       "increment_key" => "id",
                       "class_name" => "eZBasket",
@@ -246,6 +248,9 @@ class eZBasket extends eZPersistentObject
         {
             $total += $item['total_price_inc_vat'];
         }
+
+        $total += $this->bond();
+
         return $total;
     }
 
@@ -258,6 +263,9 @@ class eZBasket extends eZPersistentObject
         {
             $total += $item['total_price_ex_vat'];
         }
+
+        $total += $this->bond();
+
         return $total;
     }
 
@@ -627,6 +635,11 @@ WHERE ezbasket.session_id = ezsession.session_key AND
         }
 
         return true;
+    }
+
+
+    function bond() {
+        return ptBondCalculator::calculateTotalBond($this->items());
     }
 }
 
