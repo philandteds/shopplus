@@ -62,7 +62,8 @@ class eZBasket extends eZPersistentObject
                                                       'is_empty' => 'isEmpty',
                                                       'productcollection' => 'productCollection',
                                                       'items_info' => 'itemsInfo',
-                                                      'bond' => 'bond'
+                                                      'bond' => 'bond',
+                                                      'bundle_discount' => 'bundleDiscount'
                       ),
                       "keys" => array( "id" ),
                       "increment_key" => "id",
@@ -250,6 +251,7 @@ class eZBasket extends eZPersistentObject
         }
 
         $total += $this->bond();
+        $total -= $this->bundleDiscount();
 
         return $total;
     }
@@ -265,6 +267,7 @@ class eZBasket extends eZPersistentObject
         }
 
         $total += $this->bond();
+        $total -= $this->bundleDiscount();
 
         return $total;
     }
@@ -640,6 +643,16 @@ WHERE ezbasket.session_id = ezsession.session_key AND
 
     function bond() {
         return ptBondCalculator::calculateTotalBond($this->items());
+    }
+
+    function bundleDiscount() {
+        $productCollectionId = self::currentBasket()->attribute('productcollection_id');
+
+        if ($productCollectionId) {
+            return ptBundleDiscountCalculator::calculateBundleDiscount($this->attribute('productcollection_id'), $this->items());
+        } else {
+            return 0;
+        }
     }
 }
 
