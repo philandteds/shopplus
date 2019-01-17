@@ -41,6 +41,12 @@ class eZBasket extends eZPersistentObject
                                                                 'datatype' => 'string',
                                                                 'default' => '',
                                                                 'required' => true ),
+                                         "user_id" => array( 'name' => "UserID",
+                                                             'datatype' => 'integer',
+                                                             'default' => 0,
+                                                             'required' => false,
+                                                             'foreign_class' => 'eZUser',
+                                                             'foreign_attribute' => 'contentobject_id'),
                                          "productcollection_id" => array( 'name' => "ProductCollectionID",
                                                                           'datatype' => 'integer',
                                                                           'default' => '0',
@@ -301,6 +307,7 @@ class eZBasket extends eZPersistentObject
         return eZPersistentObject::fetchObject( eZBasket::definition(),
                                                 null, array( "session_id" => $sessionKey ),
                                                 true );
+	//we may need to consider checking for a basket via user id as well
     }
 
     /*!
@@ -312,6 +319,8 @@ class eZBasket extends eZPersistentObject
     static function currentBasket( $asObject=true, $byOrderID=-1 )
     {
         $basketList = array();
+        $currentUser = eZUser::currentUser();
+        $userID = ($currentUser) ? $currentUser->attribute('contentobject_id') : 0;
 
         if( $byOrderID != -1 )
         {
@@ -321,14 +330,22 @@ class eZBasket extends eZPersistentObject
                                                                 $asObject );
         }
         else
-        {
+	{
             $http = eZHTTPTool::instance();
             $sessionID = $http->sessionID();
 
             $basketList = eZPersistentObject::fetchObjectList( eZBasket::definition(),
-                                                                null, array( "session_id" => $sessionID ),
-                                                                null, null,
-                                                                $asObject );
+                                                            null, array( "session_id" => $sessionID ),
+                                                            null, null,
+                                                            $asObject );
+            if ( $userID && count( $basketList ) == 0 )
+            {
+                // check if a basket is stored under the user id
+                $basketList = eZPersistentObject::fetchObjectList( eZBasket::definition(),
+                                                    null, array( "user_id" => $userID ),
+                                                    null, null,
+                                                    $asObject );
+            }
         }
 
         $currentBasket = false;
@@ -340,6 +357,7 @@ class eZBasket extends eZPersistentObject
             $collection->store();
 
             $currentBasket = new eZBasket( array( "session_id" => $sessionID,
+                                                  "user_id" => $userID,
                                                   "productcollection_id" => $collection->attribute( "id" ) ) );
             $currentBasket->store();
             $db->commit();
@@ -347,6 +365,10 @@ class eZBasket extends eZPersistentObject
         else
         {
             $currentBasket = $basketList[0];
+            if ($sessionID != $currentBasket->SessionID) {
+                $currentBasket->SessionID = $sessionID;
+                $result = ezPersistentObject::storeObject($currentBasket);
+            }
         }
         return $currentBasket;
     }
