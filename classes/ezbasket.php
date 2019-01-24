@@ -321,6 +321,11 @@ class eZBasket extends eZPersistentObject
         $basketList = array();
         $currentUser = eZUser::currentUser();
         $userID = ($currentUser) ? $currentUser->attribute('contentobject_id') : 0;
+        if ($userID) {
+            // we want to ignore the anonymous user as it will break the cart
+            $userEmail = $currentUser->attribute('email');
+            $userID = ($userEmail == 'nospam@ez.no') ? null : $userID;
+        }
 
         if( $byOrderID != -1 )
         {
