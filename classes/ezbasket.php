@@ -116,6 +116,10 @@ class eZBasket extends eZPersistentObject
 
                 $isVATIncluded = $productItem->attribute( 'is_vat_inc' );
                 $price = $productItem->attribute( 'price' );
+                // double check price via SKU
+                if (empty($price)) {
+                    $price = PTBasketCheckerHandler::confirmEmptyProductPrice( $productItem, $price );
+                }
 
                 if ( $isVATIncluded )
                 {
